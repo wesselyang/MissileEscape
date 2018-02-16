@@ -128,6 +128,7 @@
      <Compile Include="Assets\NGUI\Scripts\Editor\UIWidgetContainerEditor.cs" />
      <Compile Include="Assets\NGUI\Scripts\Editor\UIWidgetInspector.cs" />
      <Compile Include="Assets\NGUI\Scripts\Editor\UIWrapContentEditor.cs" />
+     <Compile Include="Assets\Toon_Explosion_V1\Plugins\Editor\HTExplosionEditor.cs" />
      <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Masked 1.shader" />
      <None Include="Assets\NGUI\Resources\Shaders\Unlit - Text 2.shader" />
      <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Masked 2.shader" />

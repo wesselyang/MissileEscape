@@ -1,6 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// Button Control.
+/// Author: Mingxi Yang
+/// </summary>
+
 public class ButtonControl : MonoBehaviour {
 
     private Ship m_Ship;
@@ -38,7 +43,6 @@ public class ButtonControl : MonoBehaviour {
         }
     }
 
-    // Use this for initialization
     void Start () {
 
         left = GameObject.Find("Left");
@@ -51,7 +55,6 @@ public class ButtonControl : MonoBehaviour {
 
 	}
 	
-	// Update is called once per frame
 	void Update () {
 
 	}
