@@ -156,7 +156,12 @@
      <Compile Include="Assets\Scripts\Control\ButtonControl.cs" />
      <Compile Include="Assets\Scripts\Missile\Missile.cs" />
      <Compile Include="Assets\Scripts\Missile\MissileManager.cs" />
+     <Compile Include="Assets\Scripts\Reward\Reward.cs" />
+     <Compile Include="Assets\Scripts\Reward\RewardManager.cs" />
      <Compile Include="Assets\Scripts\Ship\Ship.cs" />
+     <Compile Include="Assets\Scripts\Shop\ShopData.cs" />
+     <Compile Include="Assets\Scripts\UI\GameUIManager.cs" />
+     <Compile Include="Assets\Scripts\UI\StartUIManager.cs" />
      <Compile Include="Assets\Toon_Explosion_V1\Plugins\HTExplosion.cs" />
      <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Masked 1.shader" />
      <None Include="Assets\NGUI\Resources\Shaders\Unlit - Text 2.shader" />
@@ -164,6 +169,7 @@
      <None Include="Assets\NGUI\Resources\Shaders\Unlit - Text 1.shader" />
      <None Include="Assets\NGUI\Resources\Shaders\Unlit - Premultiplied Colored (TextureClip).shader" />
      <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Colored (Packed) (TextureClip).shader" />
+     <None Include="Assets\Data\ShopData.xml" />
      <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Colored 2.shader" />
      <None Include="Assets\NGUI\Resources\Shaders\Unlit - Premultiplied Colored 3.shader" />
      <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Colored (TextureClip).shader" />

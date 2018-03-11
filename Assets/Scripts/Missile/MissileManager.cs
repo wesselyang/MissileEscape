@@ -3,7 +3,7 @@ using System.Collections;
 
 /// <summary>
 /// Missile Creator Script.
-/// Author: Mingxi Yang
+/// Author: Mingxi Yang 104563133
 /// </summary>
 /// 
 
@@ -12,6 +12,8 @@ public class MissileManager : MonoBehaviour {
     private Transform m_Transform;
     private Transform[] createPoints;
 
+    private GameObject prefab_Missile_1;
+    private GameObject prefab_Missile_2;
     private GameObject prefab_Missile_3;
 
 	void Start () {
@@ -23,9 +25,11 @@ public class MissileManager : MonoBehaviour {
         //    Debug.Log("Point--" + createPoints[i].name);
         //}
 
-        prefab_Missile_3 = Resources.Load<GameObject>("Missile_3");
+        prefab_Missile_1 = Resources.Load<GameObject>("Missile/Missile_1");
+        prefab_Missile_2 = Resources.Load<GameObject>("Missile/Missile_2");
+        prefab_Missile_3 = Resources.Load<GameObject>("Missile/Missile_3");
 
-        InvokeRepeating("CreateMissile", 3, 5);
+        InvokeRepeating("CreateMissile", 2, 2);
 	}
 	
 
@@ -37,7 +41,18 @@ public class MissileManager : MonoBehaviour {
     private void CreateMissile()
     {
         int index = Random.Range(0, createPoints.Length);
-        GameObject.Instantiate(prefab_Missile_3, createPoints[index].position, Quaternion.identity, m_Transform);
+        int missileType = Random.Range(1, 4);
+        switch (missileType) {
+            case 1:
+                GameObject.Instantiate(prefab_Missile_1, createPoints[index].position, Quaternion.identity, m_Transform);
+                break;
+            case 2:
+                GameObject.Instantiate(prefab_Missile_2, createPoints[index].position, Quaternion.identity, m_Transform);
+                break;
+            case 3:
+                GameObject.Instantiate(prefab_Missile_3, createPoints[index].position, Quaternion.identity, m_Transform);
+                break;
+        }
     }
 
     /// <summary>

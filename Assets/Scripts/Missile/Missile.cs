@@ -3,7 +3,7 @@ using System.Collections;
 
 /// <summary>
 /// Missile Control Script.
-/// Author: Mingxi Yang
+/// Author: Mingxi Yang 104563133
 /// </summary>
 
 public class Missile : MonoBehaviour {
@@ -12,19 +12,19 @@ public class Missile : MonoBehaviour {
     private Transform player_Transform;
 
     private Vector3 normalForward = Vector3.forward;
-    private GameObject smoke03; //Explosion effects
+    private GameObject prefab_Smoke03; //Explosion effects
 
     void Start () {
         m_Transform = gameObject.GetComponent<Transform>();
         player_Transform = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
 
-        smoke03 = Resources.Load<GameObject>("Smoke03");
+        prefab_Smoke03 = Resources.Load<GameObject>("Smoke03");
     }
 	
 	void Update () {
         m_Transform.Translate(Vector3.forward);
 
-        //Missile tracking.
+        //Missile pursuing.
         Vector3 dir = player_Transform.position - m_Transform.position; //Calculate the direction from missile to warship(player).
 
         normalForward = Vector3.Lerp(normalForward, dir, Time.deltaTime); //Using interpolation calculation to calculate the angle.
@@ -38,7 +38,7 @@ public class Missile : MonoBehaviour {
     {
         if(coll.tag == "Missile")
         {
-            GameObject.Instantiate(smoke03, m_Transform.position, Quaternion.identity); //Show the explosion effect.
+            GameObject.Instantiate(prefab_Smoke03, m_Transform.position, Quaternion.identity); //Show the explosion effect.
 
             GameObject.Destroy(gameObject); //Delete itself when colliding other missiles.
         }
