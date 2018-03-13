@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 /// <summary>
 /// Shop Module Manager.
@@ -14,11 +15,27 @@ public class ShopManager : MonoBehaviour {
 
     private GameObject ui_ShopItem;
 
+    //Two buttons in Shop Module.
+    private GameObject leftButton;
+    private GameObject rightButton;
+
+    //A list of UI items.
+    private List<GameObject> shopUI = new List<GameObject>();
+
+    private int index = 0; // the index of item that shown in Shop Module.
+
     void Start () {
         shopData = new ShopData();
         shopData.ReadXmlByPath(xmlPath);
 
         ui_ShopItem = Resources.Load<GameObject>("UI/ShopItem");
+
+        //Button event binding.
+        leftButton = GameObject.Find("LeftButton");
+        rightButton = GameObject.Find("RightButton");
+        UIEventListener.Get(leftButton).onClick = LeftButtonClick;
+        UIEventListener.Get(rightButton).onClick = RightButtonClick;
+
 
         CreateAllShopUI();
 	}
@@ -36,7 +53,53 @@ public class ShopManager : MonoBehaviour {
             GameObject ship = Resources.Load<GameObject>(shopData.shopList[i].Model);
             //Set the value for the item object in UI.
             item.GetComponent<ShopItemUI>().SetUIValue(shopData.shopList[i].Speed, shopData.shopList[i].Rotate, shopData.shopList[i].Price, ship);
+
+            //Add the item into list
+            shopUI.Add(item);
         }
+        //Hide UI items.
+        ShopUISwitch(index);
+    }
+
+    /// <summary>
+    /// Left Button Click Event.
+    /// </summary>
+    private void LeftButtonClick(GameObject go)
+    {
+        if (index > 0)
+        {
+            Debug.Log("Left");
+            index--;
+            ShopUISwitch(index);
+        }
+
+    }
+
+    /// <summary>
+    /// Right Button Click Event.
+    /// </summary>
+    private void RightButtonClick(GameObject go)
+    {
+        if (index < shopUI.Count - 1)
+        {
+            Debug.Log("Right");
+            index++;
+            ShopUISwitch(index);
+        }
+    }
+
+    /// <summary>
+    /// UI items method of hiding and showing.
+    /// </summary>
+    /// <param name="index"></param>
+    private void ShopUISwitch(int index)
+    {
+        for(int i = 0; i < shopUI.Count; i++)
+        {
+            shopUI[i].SetActive(false);
+
+        }
+        shopUI[index].SetActive(true);
     }
 
 }

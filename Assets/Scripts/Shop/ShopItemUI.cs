@@ -15,6 +15,8 @@ public class ShopItemUI : MonoBehaviour {
     private UILabel ui_Price;
     private GameObject shipParent;
 
+    private GameObject PurchaseButton;
+
     // Use this for initialization
 	void Awake ()
     {
@@ -25,6 +27,9 @@ public class ShopItemUI : MonoBehaviour {
         ui_Price = m_Transform.FindChild("PurchaseButton/Price").GetComponent<UILabel>();
 
         shipParent = m_Transform.FindChild("Model").gameObject;
+
+        PurchaseButton = m_Transform.FindChild("PurchaseButton/Bg").gameObject;
+        UIEventListener.Get(PurchaseButton).onClick = PurchaseButtonClick;
 
 	}
 	
@@ -51,6 +56,14 @@ public class ShopItemUI : MonoBehaviour {
         Vector3 rot = new Vector3(-90, 0, 0);
         ship_Transform.localRotation = Quaternion.Euler(rot);
 
+    }
+
+    /// <summary>
+    /// Purchase button click event.
+    /// </summary>
+    private void PurchaseButtonClick(GameObject go)
+    {
+        Debug.Log("PurchaseButton");
     }
 
 }
