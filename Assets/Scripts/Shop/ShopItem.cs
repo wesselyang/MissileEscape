@@ -5,17 +5,25 @@
 
 public class ShopItem {
 
+    private string id;
     private string speed;
     private string rotate;
     private string model;
     private string price;
 
-    public ShopItem(string speed, string rotate, string model, string price)
+    public ShopItem(string id, string speed, string rotate, string model, string price)
     {
+        this.id = id;
         this.speed = speed;
         this.rotate = rotate;
         this.model = model;
         this.price = price;
+    }
+
+    public string Id
+    {
+        get { return id; }
+        set { id = value; }
     }
 
     public string Speed

@@ -12,6 +12,7 @@ public class ShopManager : MonoBehaviour {
     private ShopData shopData; //Shop Data Object.
 
     private string xmlPath = "Assets/Data/ShopData.xml"; //shop data xml path.
+    private string savePath = "Assets/Data/SaveData.xml"; //player data xml path.
 
     private GameObject ui_ShopItem;
 
@@ -24,9 +25,22 @@ public class ShopManager : MonoBehaviour {
 
     private int index = 0; // the index of item that shown in Shop Module.
 
+    private UILabel starValue;
+    private UILabel scoreValue;
+
+
     void Start () {
         shopData = new ShopData();
         shopData.ReadXmlByPath(xmlPath);
+        shopData.ReadPlayerInfo(savePath);
+
+        //Test for ReadPlayerInfo.
+        Debug.Log(shopData.goldCount);
+        Debug.Log(shopData.bestScore);
+        for(int i = 0; i < shopData.shopStatus.Count; i++)
+        {
+            Debug.Log(shopData.shopStatus[i]);
+        }
 
         ui_ShopItem = Resources.Load<GameObject>("UI/ShopItem");
 
@@ -36,10 +50,27 @@ public class ShopManager : MonoBehaviour {
         UIEventListener.Get(leftButton).onClick = LeftButtonClick;
         UIEventListener.Get(rightButton).onClick = RightButtonClick;
 
+        //Sync the player info data from xml to UI.
+        starValue = GameObject.Find("Star/StarValue").GetComponent<UILabel>();
+        scoreValue = GameObject.Find("Score/ScoreValue").GetComponent<UILabel>();
+        UpdateUIData();
 
         CreateAllShopUI();
 	}
-	
+
+
+    /// <summary>
+    /// Update the gold and best score in UI.
+    /// </summary>
+    private void UpdateUIData()
+    {
+
+        starValue.text = shopData.goldCount.ToString();
+        scoreValue.text = shopData.bestScore.ToString();
+
+    }
+
+
     /// <summary>
     /// Create all shop items.
     /// </summary>
@@ -52,7 +83,7 @@ public class ShopManager : MonoBehaviour {
             //Load the corresponding ship model.
             GameObject ship = Resources.Load<GameObject>(shopData.shopList[i].Model);
             //Set the value for the item object in UI.
-            item.GetComponent<ShopItemUI>().SetUIValue(shopData.shopList[i].Speed, shopData.shopList[i].Rotate, shopData.shopList[i].Price, ship);
+            item.GetComponent<ShopItemUI>().SetUIValue(shopData.shopList[i].Id, shopData.shopList[i].Speed, shopData.shopList[i].Rotate, shopData.shopList[i].Price, ship, shopData.shopStatus[i]);
 
             //Add the item into list
             shopUI.Add(item);
@@ -100,6 +131,29 @@ public class ShopManager : MonoBehaviour {
 
         }
         shopUI[index].SetActive(true);
+    }
+
+
+    /// <summary>
+    /// Figure out if item is available for purchase.
+    /// </summary>
+    /// <param name="item"></param>
+    private void CalcItemPrice(ShopItemUI item)
+    {
+        if(shopData.goldCount >= item.ItemPrice)
+        {
+            //Debug.Log("Purchase successful!");
+            item.PurchaseDone();    //Hide purchase button after finishing purchase.
+            shopData.goldCount -= item.ItemPrice;   //Cost the gold while purchasing.
+            UpdateUIData(); //Update data in UI.
+
+            shopData.UpdateXMLData(savePath, "GoldCount", shopData.goldCount.ToString()); //Update data in XML file.
+            shopData.UpdateXMLData(savePath, "ID" + item.itemId, "1"); 
+        }
+        else
+        {
+            Debug.Log("Purchase failed.");
+        }
     }
 
 }

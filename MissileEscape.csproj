@@ -194,6 +194,9 @@
     <Compile Include="Assets\Toon_Explosion_V1\Plugins\HTExplosion.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Data\SaveData.xml">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Assets\Data\ShopData.xml">
       <SubType>Designer</SubType>
     </None>

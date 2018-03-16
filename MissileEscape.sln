@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2017
+# Visual Studio 15
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MissileEscape", "MissileEscape.csproj", "{10FB7586-E2E9-D813-AB2C-ACC044B9AD6D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MissileEscape.Editor", "MissileEscape.Editor.csproj", "{5A323411-CC36-DF9B-F737-C2DC50E30FA8}"
