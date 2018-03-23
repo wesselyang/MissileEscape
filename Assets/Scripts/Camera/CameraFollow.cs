@@ -3,7 +3,7 @@ using System.Collections;
 
 /// <summary>
 /// Camera Follow Scripts.
-/// Author: Mingxi Yang
+/// Author: Mingxi Yang 104563133
 /// </summary>
 
 public class CameraFollow : MonoBehaviour {
@@ -14,7 +14,6 @@ public class CameraFollow : MonoBehaviour {
 	void Start () {
         m_Transform = gameObject.GetComponent<Transform>();
         player_Transform = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
-
 
 	}
 	

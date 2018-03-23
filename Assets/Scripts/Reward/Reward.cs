@@ -12,7 +12,7 @@ public class Reward : MonoBehaviour {
     // Use this for initialization
 	void Start () {
         m_Transform = gameObject.GetComponent<Transform>();
-	}
+    }
 	
 	// Update is called once per frame
 	void Update () {

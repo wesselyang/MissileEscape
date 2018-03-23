@@ -10,24 +10,24 @@ using UnityEngine.SceneManagement;
 public class StartUIManager : MonoBehaviour {
 
     private GameObject m_StartPanel;
-    private GameObject m_SettingsPanel;
+    private GameObject m_AuthorPanel;
 
-    private GameObject button_Settings;
+    private GameObject button_Author;
     private GameObject button_Close;
     private GameObject button_Play;
 
-    private void SettingsButtonClick(GameObject go)
+    private void AuthorButtonClick(GameObject go)
     {
-        Debug.Log("Settings button clicked");
-        if (m_SettingsPanel.activeSelf == false)
+        Debug.Log("Author button clicked");
+        if (m_AuthorPanel.activeSelf == false)
         {
-            m_SettingsPanel.SetActive(true);
+            m_AuthorPanel.SetActive(true);
         }
     }
 
     private void CloseButtonClick(GameObject go)
     {
-        m_SettingsPanel.SetActive(false);
+        m_AuthorPanel.SetActive(false);
     }
 
     private void PlayButtonClick(GameObject go)
@@ -35,20 +35,28 @@ public class StartUIManager : MonoBehaviour {
         SceneManager.LoadScene("Game");
     }
 
+    public void SetPlayButtonStatus(int status)
+    {
+        if (status == 1)
+            button_Play.SetActive(true);
+        else
+            button_Play.SetActive(false);
+    }
+
     // Use this for initialization
     void Start () {
         m_StartPanel = GameObject.Find("StartPanel");
-        m_SettingsPanel = GameObject.Find("SettingsPanel");
+        m_AuthorPanel = GameObject.Find("AuthorPanel");
 
-        button_Settings = GameObject.Find("Settings");
+        button_Author = GameObject.Find("Author");
         button_Close = GameObject.Find("Close");
         button_Play = GameObject.Find("Play");
 
-        UIEventListener.Get(button_Settings).onClick = SettingsButtonClick;
+        UIEventListener.Get(button_Author).onClick = AuthorButtonClick;
         UIEventListener.Get(button_Close).onClick = CloseButtonClick;
         UIEventListener.Get(button_Play).onClick = PlayButtonClick;
 
-        m_SettingsPanel.SetActive(false);
+        m_AuthorPanel.SetActive(false);
 	}
 	
 	// Update is called once per frame

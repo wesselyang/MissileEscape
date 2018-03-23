@@ -15,6 +15,7 @@
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
     <CompilerResponseFile>
     </CompilerResponseFile>
+    <UnityProjectGenerator>VSTU</UnityProjectGenerator>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.4.1f1</UnityVersion>
@@ -185,6 +186,7 @@
     <Compile Include="Assets\Scripts\Reward\Reward.cs" />
     <Compile Include="Assets\Scripts\Reward\RewardManager.cs" />
     <Compile Include="Assets\Scripts\Ship\Ship.cs" />
+    <Compile Include="Assets\Scripts\Ship\ShipManager.cs" />
     <Compile Include="Assets\Scripts\Shop\ShopData.cs" />
     <Compile Include="Assets\Scripts\Shop\ShopItem.cs" />
     <Compile Include="Assets\Scripts\Shop\ShopItemUI.cs" />

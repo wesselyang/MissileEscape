@@ -3,7 +3,7 @@ using System.Collections;
 
 /// <summary>
 /// Button Control.
-/// Author: Mingxi Yang
+/// Author: Mingxi Yang 104563133
 /// </summary>
 
 public class ButtonControl : MonoBehaviour {

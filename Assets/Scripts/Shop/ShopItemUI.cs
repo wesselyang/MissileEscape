@@ -19,7 +19,7 @@ public class ShopItemUI : MonoBehaviour {
     private GameObject itemStatus; //The items status for recognizing if purchase button is needed to show.
 
     private int itemPrice;
-    public int itemId;  
+    private int itemId;  
 
 	void Awake ()
     {
@@ -43,6 +43,12 @@ public class ShopItemUI : MonoBehaviour {
         set { itemPrice = value; }
     }
 
+    public int ItemId
+    {
+        get { return itemId; }
+        set { itemId = value; }
+    }
+
     /// <summary>
     /// Set the value for each item in UI.
     /// </summary>
@@ -53,8 +59,8 @@ public class ShopItemUI : MonoBehaviour {
         ui_Rotate.text = rotate;
         ui_Price.text = price;
 
-        itemPrice = int.Parse(price);
-        itemId = int.Parse(id);
+        ItemPrice = int.Parse(price);
+        ItemId = int.Parse(id);
 
         //recoginze the status of the item.
         if (status == 1)
@@ -70,7 +76,20 @@ public class ShopItemUI : MonoBehaviour {
         ship_Transform.FindChild("Mesh").gameObject.layer = 5; //Set the mesh in ship object as UI layer.
 
         //Ship item position setup in UI.
-        ship_Transform.localScale = Vector3.one * 5; 
+        //Scale adjustment.
+        if(model.name == "Ship_4")
+        {
+            ship_Transform.localScale = Vector3.one * 2.5f;
+        }
+        else if(model.name == "Ship_5")
+        {
+            ship_Transform.localScale = Vector3.one * 4;
+        }
+        else
+        {
+            ship_Transform.localScale = Vector3.one * 7;
+        }
+        
         ship_Transform.localPosition = new Vector3(0, -29, 0);
         Vector3 rot = new Vector3(-90, 0, 0);
         ship_Transform.localRotation = Quaternion.Euler(rot);
@@ -83,7 +102,7 @@ public class ShopItemUI : MonoBehaviour {
     private void PurchaseButtonClick(GameObject go)
     {
         Debug.Log("PurchaseButton");
-        SendMessageUpwards("CalcItemPrice", this);
+        SendMessageUpwards("PurchaseAction", this);
     }
 
     public void PurchaseDone()

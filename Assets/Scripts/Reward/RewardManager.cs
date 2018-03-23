@@ -3,6 +3,7 @@ using System.Collections;
 
 /// <summary>
 /// Reward item manager.
+/// Author: Mingxi Yang 104563133
 /// </summary>
 
 public class RewardManager : MonoBehaviour {
@@ -11,8 +12,9 @@ public class RewardManager : MonoBehaviour {
     private GameObject prefab_Reward;
 
     private int rewardCount = 0;
-    private int rewardMaxCount = 3;
+    private int rewardMaxCount = 10;
 
+    //private Ship m_ship;
 
 
     private void CreateReward()
@@ -40,13 +42,18 @@ public class RewardManager : MonoBehaviour {
     // Use this for initialization
 	void Start () {
         m_Transform = gameObject.GetComponent<Transform>();
-        prefab_Reward = Resources.Load<GameObject>("Reward");
+        //m_ship = GameObject.FindGameObjectWithTag("Player").GetComponent<Ship>();
+        prefab_Reward = Resources.Load<GameObject>("Reward/Reward");
 
-        InvokeRepeating("CreateReward", 5, 5);
+
+        InvokeRepeating("CreateReward", 3, 2);
 	}
 	
 	// Update is called once per frame
 	void Update () {
-    
+        //if(m_ship.IsDeath == true)
+        //{
+        //    StopCreate();
+        //}
 	}
 }

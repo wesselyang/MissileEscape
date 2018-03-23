@@ -28,6 +28,7 @@ public class ShopManager : MonoBehaviour {
     private UILabel starValue;
     private UILabel scoreValue;
 
+    private StartUIManager m_StartUIManager;
 
     void Start () {
         shopData = new ShopData();
@@ -43,6 +44,7 @@ public class ShopManager : MonoBehaviour {
         }
 
         ui_ShopItem = Resources.Load<GameObject>("UI/ShopItem");
+        m_StartUIManager = GameObject.Find("UI Root").GetComponent<StartUIManager>();
 
         //Button event binding.
         leftButton = GameObject.Find("LeftButton");
@@ -53,7 +55,10 @@ public class ShopManager : MonoBehaviour {
         //Sync the player info data from xml to UI.
         starValue = GameObject.Find("Star/StarValue").GetComponent<UILabel>();
         scoreValue = GameObject.Find("Score/ScoreValue").GetComponent<UILabel>();
+
         UpdateUIData();
+
+        SetInGameShipPath(shopData.shopList[index].Model);  //Pre-load the ship model path.
 
         CreateAllShopUI();
 	}
@@ -81,7 +86,7 @@ public class ShopManager : MonoBehaviour {
             //Instantiate an shop item object.
             GameObject item = NGUITools.AddChild(gameObject, ui_ShopItem);
             //Load the corresponding ship model.
-            GameObject ship = Resources.Load<GameObject>(shopData.shopList[i].Model);
+            GameObject ship = Resources.Load<GameObject>("shipUI/" + shopData.shopList[i].Model);
             //Set the value for the item object in UI.
             item.GetComponent<ShopItemUI>().SetUIValue(shopData.shopList[i].Id, shopData.shopList[i].Speed, shopData.shopList[i].Rotate, shopData.shopList[i].Price, ship, shopData.shopStatus[i]);
 
@@ -101,6 +106,9 @@ public class ShopManager : MonoBehaviour {
         {
             Debug.Log("Left");
             index--;
+            int status = shopData.shopStatus[index];
+            m_StartUIManager.SetPlayButtonStatus(status);
+            SetInGameShipPath(shopData.shopList[index].Model);  //Pre-load the path while selecting.
             ShopUISwitch(index);
         }
 
@@ -115,6 +123,9 @@ public class ShopManager : MonoBehaviour {
         {
             Debug.Log("Right");
             index++;
+            int status = shopData.shopStatus[index];
+            m_StartUIManager.SetPlayButtonStatus(status);
+            SetInGameShipPath(shopData.shopList[index].Model);  //Pre-load the path while selecting.
             ShopUISwitch(index);
         }
     }
@@ -138,7 +149,7 @@ public class ShopManager : MonoBehaviour {
     /// Figure out if item is available for purchase.
     /// </summary>
     /// <param name="item"></param>
-    private void CalcItemPrice(ShopItemUI item)
+    private void PurchaseAction(ShopItemUI item)
     {
         if(shopData.goldCount >= item.ItemPrice)
         {
@@ -148,7 +159,10 @@ public class ShopManager : MonoBehaviour {
             UpdateUIData(); //Update data in UI.
 
             shopData.UpdateXMLData(savePath, "GoldCount", shopData.goldCount.ToString()); //Update data in XML file.
-            shopData.UpdateXMLData(savePath, "ID" + item.itemId, "1"); 
+            int status = shopData.shopStatus[index] = 1;
+            shopData.UpdateXMLData(savePath, "ID" + item.ItemId, "1");
+            
+            m_StartUIManager.SetPlayButtonStatus(status);
         }
         else
         {
@@ -156,4 +170,13 @@ public class ShopManager : MonoBehaviour {
         }
     }
 
+
+    /// <summary>
+    /// Set in-game Ship model path.
+    /// </summary>
+    /// <param name="name"></param>
+    private void SetInGameShipPath(string name)
+    {
+        PlayerPrefs.SetString("ShipInGamePath", "ShipInGame/" + name);
+    }
 }

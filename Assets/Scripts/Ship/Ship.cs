@@ -18,6 +18,7 @@ public class Ship : MonoBehaviour {
     private int rewardNum = 0; //
 
     private MissileManager m_MissileManager;
+    private RewardManager m_RewardManager;
 
     private GameObject prefab_Smoke03; //Explosion effects
 
@@ -35,17 +36,24 @@ public class Ship : MonoBehaviour {
         set { isRight = value; }
     }
 
+    public bool IsDeath
+    {
+        get { return isDeath; }
+        set { isDeath = value; }
+    }
+
     void Start () {
 
         m_Transform = gameObject.GetComponent<Transform>();
         m_MissileManager = GameObject.Find("MissileManager").GetComponent<MissileManager>();
+        m_RewardManager = GameObject.Find("RewardManager").GetComponent<RewardManager>();
         prefab_Smoke03 = Resources.Load<GameObject>("Smoke03");
         m_GameUIManager = GameObject.Find("UI Root").GetComponent<GameUIManager>();
 
 	}
 	
 	void Update () {
-        if (isDeath == false) //Player is able to turn the warship when it's alive.
+        if (IsDeath == false) //Player is able to turn the warship when it's alive.
         {
             m_Transform.Translate(Vector3.forward); //Automatically go forward.
 
@@ -67,26 +75,30 @@ public class Ship : MonoBehaviour {
         //When the warship touches the border.
         if(coll.tag == "Border")
         {
-            isDeath = true;
+            IsDeath = true;
             GameObject.Instantiate(prefab_Smoke03, m_Transform.position, Quaternion.identity); //Show the explosion effect.
 
             m_GameUIManager.ShowOverPanel();
 
-            m_MissileManager.StopCreate(); //Stop creating missiles.
+            m_MissileManager.StopCreate();  //Stop creating missiles.
+            m_RewardManager.StopCreate();   //Stop creating reward items.
             gameObject.SetActive(false); //Make warship "invisible".
+            
             
         }
 
         //When the warship touches the missile.
         if(coll.tag == "Missile")
         {
-            isDeath = true; //Mark warship as dead
+            IsDeath = true; //Mark warship as dead
             GameObject.Instantiate(prefab_Smoke03, m_Transform.position, Quaternion.identity); //Show the explosion effect.
 
             m_GameUIManager.ShowOverPanel();
 
             m_MissileManager.StopCreate(); //Stop creating missiles.
+            m_RewardManager.StopCreate();   //Stop creating reward items.
             GameObject.Destroy(coll.gameObject); //Delete the missile that is colliding the warship.
+            //GameObject.Destroy(GameObject.FindGameObjectsWithTag("Missile"));
             gameObject.SetActive(false); //Make warship "invisible".
 
         }
