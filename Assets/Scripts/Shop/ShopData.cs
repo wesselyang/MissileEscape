@@ -1,13 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Xml;
+using UnityEngine;
 
 /// <summary>
 /// Shop data operation.
 /// Author: Mingxi Yang 104563133
 /// </summary>
 
-public class ShopData {
+public class ShopData : MonoBehaviour {
 
     public List<ShopItem> shopList = new List<ShopItem>(); //An entity List used for saving XML data.
     public List<int> shopStatus = new List<int>(); //A list of shop item purchase status.
@@ -20,10 +21,11 @@ public class ShopData {
     /// Using specific path to load xml file.
     /// </summary>
     /// <param name="path"></param>
-    public void ReadXmlByPath(string path)
+    public void ReadXmlByPath(string content)
     {
         XmlDocument doc = new XmlDocument();
-        doc.Load(path);
+        //doc.Load(path);
+        doc.LoadXml(content);   //Load the content from the variable.
         XmlNode root = doc.SelectSingleNode("Shop");
         XmlNodeList nodeList = root.ChildNodes;
 

@@ -101,7 +101,7 @@ public class ShopItemUI : MonoBehaviour {
     /// </summary>
     private void PurchaseButtonClick(GameObject go)
     {
-        Debug.Log("PurchaseButton");
+        //Debug.Log("PurchaseButton");
         SendMessageUpwards("PurchaseAction", this);
     }
 

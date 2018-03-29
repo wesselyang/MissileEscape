@@ -7,11 +7,13 @@ using System.Collections;
 public class Reward : MonoBehaviour {
 
     private Transform m_Transform;
+    private RewardManager m_RewardManager;
 
 
     // Use this for initialization
 	void Start () {
         m_Transform = gameObject.GetComponent<Transform>();
+	    m_RewardManager = GameObject.Find("RewardManager").GetComponent<RewardManager>();
     }
 	
 	// Update is called once per frame
@@ -22,7 +24,8 @@ public class Reward : MonoBehaviour {
     void OnDestroy()
     {
         //Debug.Log("I'm destroyed.");
-        SendMessageUpwards("RewardCountDown");
+        //SendMessageUpwards("RewardCountDown");
+        m_RewardManager.RewardCountDown();
     }
 
 }

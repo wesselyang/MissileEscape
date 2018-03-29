@@ -11,7 +11,7 @@ public class Missile : MonoBehaviour {
     private Transform m_Transform;
     private Transform player_Transform;
 
-    private Vector3 normalForward = Vector3.forward;
+    private Vector3 normalForward = Vector3.forward * 2.0f;
     private GameObject prefab_Smoke03; //Explosion effects
 
     void Start () {

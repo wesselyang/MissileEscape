@@ -24,6 +24,12 @@ public class Ship : MonoBehaviour {
 
     private GameUIManager m_GameUIManager;
 
+    private int speed;
+    private int rotate;
+
+    public int Speed { get; set; }
+    public int Rotate { get; set; }
+
     public bool IsLeft
     {
         get { return isLeft; }
@@ -55,25 +61,25 @@ public class Ship : MonoBehaviour {
 	void Update () {
         if (IsDeath == false) //Player is able to turn the warship when it's alive.
         {
-            m_Transform.Translate(Vector3.forward); //Automatically go forward.
+            m_Transform.Translate(Vector3.forward * 0.3f * Speed); //Automatically go forward.
 
             if (isLeft)
             {
-                m_Transform.Rotate(Vector3.up * -1);
+                m_Transform.Rotate(Vector3.up * -0.2f * Rotate);
             }
 
             if (isRight)
             {
-                m_Transform.Rotate(Vector3.up * 1);
+                m_Transform.Rotate(Vector3.up * 0.2f * Rotate);
             }
         }
     }
 
     private void OnTriggerEnter(Collider coll)
     {
-
+        GameObject[] allMissiles = GameObject.FindGameObjectsWithTag("Missile");
         //When the warship touches the border.
-        if(coll.tag == "Border")
+        if (coll.tag == "Border")
         {
             IsDeath = true;
             GameObject.Instantiate(prefab_Smoke03, m_Transform.position, Quaternion.identity); //Show the explosion effect.
@@ -82,6 +88,11 @@ public class Ship : MonoBehaviour {
 
             m_MissileManager.StopCreate();  //Stop creating missiles.
             m_RewardManager.StopCreate();   //Stop creating reward items.
+            for (int i = 0; i < allMissiles.Length; i++)    //Clean all the missiles created, with explosion effects.
+            {
+                GameObject.Instantiate(prefab_Smoke03, allMissiles[i].GetComponent<Transform>().position, Quaternion.identity);
+                GameObject.Destroy(allMissiles[i]);
+            }
             gameObject.SetActive(false); //Make warship "invisible".
             
             
@@ -95,9 +106,15 @@ public class Ship : MonoBehaviour {
 
             m_GameUIManager.ShowOverPanel();
 
+            
             m_MissileManager.StopCreate(); //Stop creating missiles.
             m_RewardManager.StopCreate();   //Stop creating reward items.
             GameObject.Destroy(coll.gameObject); //Delete the missile that is colliding the warship.
+            for (int i = 0; i < allMissiles.Length; i++)    //Clean all the missiles created, with explosion effects.
+            {
+                GameObject.Instantiate(prefab_Smoke03, allMissiles[i].GetComponent<Transform>().position,Quaternion.identity);
+                GameObject.Destroy(allMissiles[i]);
+            }
             //GameObject.Destroy(GameObject.FindGameObjectsWithTag("Missile"));
             gameObject.SetActive(false); //Make warship "invisible".
 
@@ -105,8 +122,8 @@ public class Ship : MonoBehaviour {
 
         if(coll.tag == "Reward")
         {
-            rewardNum++; //calculate the reward item.
-            m_GameUIManager.UpdateScoreLabel(rewardNum); //Update the score shown in GameUI.  
+            rewardNum += 10; //calculate the reward item.
+            m_GameUIManager.UpdateStarLabel(rewardNum); //Update the score shown in GameUI.  
             GameObject.Destroy(coll.gameObject); //Delete the reward item.
 
         }

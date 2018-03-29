@@ -12,7 +12,7 @@ public class RewardManager : MonoBehaviour {
     private GameObject prefab_Reward;
 
     private int rewardCount = 0;
-    private int rewardMaxCount = 10;
+    private int rewardMaxCount = 12;
 
     //private Ship m_ship;
 
@@ -36,7 +36,7 @@ public class RewardManager : MonoBehaviour {
     public void RewardCountDown()
     {
         rewardCount--;
-        Debug.Log("Create reward again.");
+        //Debug.Log("Create reward again.");
     }
 
     // Use this for initialization
@@ -51,9 +51,6 @@ public class RewardManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        //if(m_ship.IsDeath == true)
-        //{
-        //    StopCreate();
-        //}
+
 	}
 }

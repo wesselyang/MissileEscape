@@ -19,12 +19,12 @@ public class ButtonControl : MonoBehaviour {
     {
         if(isPress)
         {
-            Debug.Log("Left is pressing!");
+            //Debug.Log("Left is pressing!");
             m_Ship.IsLeft = true;
         }
         else
         {
-            Debug.Log("Left is not pressing!");
+            //Debug.Log("Left is not pressing!");
             m_Ship.IsLeft = false;
         }
     }
@@ -33,12 +33,12 @@ public class ButtonControl : MonoBehaviour {
     {
         if (isPress)
         {
-            Debug.Log("Right is pressing!");
+            //Debug.Log("Right is pressing!");
             m_Ship.IsRight = true;
         }
         else
         {
-            Debug.Log("Right is not pressing!");
+            //Debug.Log("Right is not pressing!");
             m_Ship.IsRight = false;
         }
     }

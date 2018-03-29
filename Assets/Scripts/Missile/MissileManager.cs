@@ -16,7 +16,7 @@ public class MissileManager : MonoBehaviour {
     private GameObject prefab_Missile_2;
     private GameObject prefab_Missile_3;
 
-	void Start () {
+	void Awake () {
         m_Transform = gameObject.GetComponent<Transform>();
         createPoints = GameObject.Find("CreatePoints").GetComponent<Transform>().GetComponentsInChildren<Transform>();
 

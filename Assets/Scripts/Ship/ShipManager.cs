@@ -13,13 +13,20 @@ public class ShipManager : MonoBehaviour {
 
     void Awake()
     {
-        string ship = PlayerPrefs.GetString("ShipInGamePath");
-        Debug.Log(ship);
-        model = Resources.Load<GameObject>(ship);
-        
+        //Load Ship data.
+        string shipModel = PlayerPrefs.GetString("ShipModel");
+        int speed = PlayerPrefs.GetInt("ShipSpeed");
+        int rotate = PlayerPrefs.GetInt("ShipRotate");
+        //Debug.Log(ship);
+
         //Instantiate the specific ship model in game scene.
+        model = Resources.Load<GameObject>(shipModel);
         player = GameObject.Instantiate(model, Vector3.zero, Quaternion.identity) as GameObject;
-        player.AddComponent<Ship>();    //Add Ship script to models.
+
+
+        Ship ship = player.AddComponent<Ship>();    //Add Ship script to models.
+        ship.Speed = speed;
+        ship.Rotate = rotate;
         player.tag = "Player";          //Add tag to models.
     }
 	

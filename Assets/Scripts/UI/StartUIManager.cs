@@ -9,7 +9,7 @@ using UnityEngine.SceneManagement;
 
 public class StartUIManager : MonoBehaviour {
 
-    private GameObject m_StartPanel;
+    //private GameObject m_StartPanel;
     private GameObject m_AuthorPanel;
 
     private GameObject button_Author;
@@ -45,7 +45,7 @@ public class StartUIManager : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        m_StartPanel = GameObject.Find("StartPanel");
+        //m_StartPanel = GameObject.Find("StartPanel");
         m_AuthorPanel = GameObject.Find("AuthorPanel");
 
         button_Author = GameObject.Find("Author");
