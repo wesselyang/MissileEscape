@@ -1,5 +1,5 @@
 # MissileEscape
-# Visit apk folder to find installation package for Android platform.
+## Visit apk folder to find installation package for Android platform.
 Start Page with purchased character.
 ![image](https://github.com/WestinYung/MissileEscape/blob/master/images/run1.png)
 
